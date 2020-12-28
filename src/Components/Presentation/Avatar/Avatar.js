@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Avatar, Popover, Button, Switch } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
-//import ShowTips from "./ShowTips";
 import { AzureAD } from "react-aad-msal";
 import { planningAuthProvider } from "../../../Utils/msauth";
 import {connect} from "react-redux"
-import TrainingStep from "../../Functional/ReactTour/TrainingStep"
 
 function UserAvatar(props) {
   const [cursor, setCursor] = useState("default ");
@@ -32,7 +30,7 @@ function UserAvatar(props) {
             onVisibleChange={() => {setPopoverVisible(!popoverVisible)}}
             placement="bottom"
           >
-            <TrainingStep title="Click your avatar to see your profile options" trainingName="avatar_avatar_react_tour_step"/>
+            {/* <TrainingStep title="Click your avatar to see your profile options" trainingName="avatar_avatar_react_tour_step"/> */}
             <Avatar
               className={
                 "avatar_avatar_react_tour_step " +  

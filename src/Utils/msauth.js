@@ -29,7 +29,7 @@ const config = {
 
   // Options
 const options = {
-  loginType:LoginType.Redirect
+  loginType:LoginType.Popup
 }
  
 export const authProvider = new MsalAuthProvider(config, authenticationParameters, options)

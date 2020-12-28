@@ -6,7 +6,10 @@ import logging from "./logging";
 async function getBackendAzureADUserAccessToken() {
   try {
     const token = await planningAuthProvider.getAccessToken();
-    process.env.NODE_ENV === "development" && logging("Logging this token because this is development"+JSON.stringify(token));
+    process.env.NODE_ENV === "development" &&
+      logging(
+        "Logging this token because this is development" + JSON.stringify(token)
+      );
     return token.accessToken;
   } catch (e) {
     logging(e, "error");
@@ -32,8 +35,7 @@ async function responseHandler(response) {
   session_exp = setTimeout(() => {
     response.status === 201 &&
       response.data.message !== "" &&
-      toast.success(response.data.message) &&
-      logging(JSON.parse(response.headers.response));
+      toast.success(response.data.message)
   }, 300);
   await SimulateLongerAPILoadTimes(
     process.env.NODE_ENV === "development" ? 0 : 0
@@ -43,7 +45,7 @@ async function responseHandler(response) {
 
 async function errorResponseHandler(error) {
   if (typeof error.response === "undefined") {
-    logging("API is unreachable see next error for more details", "error")
+    logging("API is unreachable see next error for more details", "error");
     logging(error, "error");
     return false;
   }
@@ -63,19 +65,34 @@ async function errorResponseHandler(error) {
       }) &&
       logging(JSON.parse(error.response.headers.response));
     error.response.status >= 400 &&
-      typeof error.response.headers.response === "undefined"&&
+      typeof error.response.headers.response === "undefined" &&
       logging("unknown axios error" + error);
   }, 300);
-  return error.response
+  return error.response;
 }
 
 export const CDMapi = axios.create({
   baseURL: process.env.REACT_APP_CDM_URI + "/api",
-  timeout: 5000,
+  timeout: 30000,
 });
 export const Planningapi = axios.create({
   baseURL: process.env.REACT_APP_PLANNING_URI + "/api",
   timeout: 5000,
+});
+
+export const Dispatchapi = axios.create({
+  baseURL: process.env.REACT_APP_DISPATCH_URI + "/api",
+  timeout: 15000,
+});
+
+export const Bookingapi = axios.create({
+  baseURL: process.env.REACT_APP_DISPATCH_URI + "/api",
+  timeout: 15000,
+});
+
+export const Unauthenticatedapi = axios.create({
+  baseURL: process.env.REACT_APP_UNAUTHENTICATED_URI + "/api",
+  timeout: 15000,
 });
 
 CDMapi.interceptors.request.use(requestHandler);
@@ -83,3 +100,12 @@ CDMapi.interceptors.response.use(responseHandler, errorResponseHandler);
 
 Planningapi.interceptors.request.use(requestHandler);
 Planningapi.interceptors.response.use(responseHandler, errorResponseHandler);
+
+Dispatchapi.interceptors.request.use(requestHandler);
+Dispatchapi.interceptors.response.use(responseHandler, errorResponseHandler);
+
+Bookingapi.interceptors.request.use(requestHandler);
+Bookingapi.interceptors.response.use(responseHandler, errorResponseHandler);
+
+Unauthenticatedapi.interceptors.request.use(requestHandler);
+Unauthenticatedapi.interceptors.response.use(responseHandler, errorResponseHandler);
