@@ -3,6 +3,10 @@ import LogRocket from 'logrocket';
 import logging from "./logging"
 export default function BuildLogRocket(accountInfo)
 {
+  if(process.env.REACT_APP_LOG_ROCKET === '')
+  {
+    return
+  }
   LogRocket.init(process.env.REACT_APP_LOG_ROCKET,{
     network: {
       requestSanitizer: request => {
