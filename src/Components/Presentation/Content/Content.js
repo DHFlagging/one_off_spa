@@ -8,7 +8,6 @@ import {
   deleteVoteForSubmission,
   voteForSubmission,
 } from "../../../Utils/redux/actions/morale_api.js";
-import TrainingStep from "reacttour_react";
 export default function Content(props) {
   const [currentEntries, setCurrentEntries] = useState([]);
   const [whoIVotedFor, setWhoIVotedFor] = useState([]);
@@ -52,11 +51,6 @@ export default function Content(props) {
                           <Spin style={{ float: "right" }} />
                         ) : (
                           <>
-                            <TrainingStep
-                              title="this is a title"
-                              importance={0}
-                              trainingName="content_content_vote"
-                            />
                             <Rate
                               className="content_content_vote"
                               style={{ float: "right" }}

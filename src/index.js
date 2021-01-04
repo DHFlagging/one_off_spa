@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Home from "./Pages/index";
 import logging from "./Utils/logging";
-import TourWrapper from "./Components/Presentation/ReactTour/TourWrapper";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
@@ -15,6 +14,8 @@ import configureStore from "./Utils/redux/configureStore";
 import InitialLoad from "./InitialLoad";
 import BuildLogRocket from "./Utils/LogRocket";
 import { Button } from "antd";
+import TourWrapper from "@jbirch8865/reacttour";
+import { CDMapi } from "./Utils/api";
 export const store = configureStore();
 
 ReactDOM.render(
@@ -26,16 +27,18 @@ ReactDOM.render(
           return (
             <Provider store={store}>
               <InitialLoad />
+              <TourWrapper api={CDMapi} />
               <ToastContainer />
-              <TourWrapper />
               <Home accountInfo={accountInfo} />
             </Provider>
           );
         } else {
-          return(<>
-            Sorry you need to authenticate.
-            <Button onClick={login}>LogIn</Button>
-          </>);
+          return (
+            <>
+              Sorry you need to authenticate.
+              <Button onClick={login}>LogIn</Button>
+            </>
+          );
         }
       }}
     </AzureAD>
