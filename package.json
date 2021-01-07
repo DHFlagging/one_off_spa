@@ -6,7 +6,7 @@
     "@ant-design/icons": "^4.3.0",
     "@fullcalendar/daygrid": "^5.4.0",
     "@fullcalendar/react": "^5.4.0",
-    "@jbirch8865/reacttour": "^1.0.6",
+    "@jbirch8865/reacttour": "^1.0.10",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
