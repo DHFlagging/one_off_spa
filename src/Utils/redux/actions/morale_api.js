@@ -53,3 +53,4 @@ export function getWhoIVotedFor(dataCallback) {
     dataCallback(response.data)
   );
 }
+

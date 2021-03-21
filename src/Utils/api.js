@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import logging from "./logging";
 
-async function getBackendAzureADUserAccessToken() {
+export async function getBackendAzureADUserAccessToken() {
   try {
     const token = await planningAuthProvider.getAccessToken();
     process.env.NODE_ENV === "development" &&
@@ -17,6 +17,22 @@ async function getBackendAzureADUserAccessToken() {
   toast.error("There was an issue with SSO.  Please inform the tech team.");
   throw new Error();
 }
+
+export async function getBackendAzureADUserProfileId() {
+  try {
+    const token = await planningAuthProvider.account.accountIdentifier;
+    process.env.NODE_ENV === "development" &&
+    logging(
+        "Logging this token because this is development" + JSON.stringify(token)
+    );
+    return token;
+  } catch (e) {
+    logging(e, "error");
+  }
+  toast.error("There was an issue with SSO.  Please inform the tech team.");
+  throw new Error();
+}
+
 
 function SimulateLongerAPILoadTimes(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
